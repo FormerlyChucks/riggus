@@ -7,33 +7,21 @@
 The bot currently does this:
 
 To make comments:
-- Checks subreddit for new submissions
-- Searches subreddit for the submission's title
-- Compares the searched title and the submission's title
-- Checks if the result has a certain amount of comments
-- Grabs a random comment from the result
-- Checks if the comment's author is in a list
-- Checks if the comment has been deleted
-- Replies with a random comment from the result
+
+- Search old posts in subreddit every time a new post come up. If there is a close match, take a random comment and reply to the new post
+
 To make submissions:
-- Checks Hacker News's "new" tab
-- If url has certain words and isn't in the datase, submit to set subreddit
+- Stream the Hacker News /newest page. If the title contains words that are in the lists in config.yaml, submit to the determined subreddit
 
 ## Running the bot
 
 It should be pretty easy to run the bot yourself
 
-- Install Python
-- Install pip
-- Install Git
-- Clone the repo:
+- Install Python, Pip, Git
 
+- Clone the repo, change into the bot directory:
 
-      git clone https://github.com/Mr-Steal-Your-Script/Humanoid
-    
-Change into the bot's directory:
-
-    cd Humanoid
+      git clone https://github.com/Mr-Steal-Your-Script/Humanoid && cd Humanoid
     
 Install the needed packages:
 
