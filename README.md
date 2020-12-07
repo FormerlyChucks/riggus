@@ -5,9 +5,11 @@
 ## Description
 
 Q: How does the bot make comments?
+
 A: It searches old posts in subreddit every time a new post comes up. If the old post's title and the new post's title have a close match, take a random comment and reply to the new post
 
 Q: How does the bot make submissions?
+
 A: It streams the Hacker News /newest page. If the title contains words that are in the lists in config.yaml, submit to the determined subreddit
 
 ## Running the bot
