@@ -44,18 +44,14 @@ Create reddit app [here](https://reddit.com/prefs/apps)
 - Select script
 - Fill out the rest
 
-Open config.py and enter your credentials:
+Open config.yaml and enter your credentials:
 
-- 'sub' is the subreddit(s) you wish to look at:
-   - ```python
-     'AskReddit' #will only look at /r/AskReddit
-     'AskReddit+AdviceAnimals' #will check /r/AskReddit and /r/AdviceAnimals
-     ```
-- cid is your personal use script
-- ua is your user agent
-- cs is your secret
-- u is your username
-- p is your password
+- 'sub_list' is the subreddit(s) you wish to look at:
+- 'client_id' is your personal use script
+- 'user_agent' is your user agent
+- 'client_secret' is your secret
+- 'username' is your username
+- 'password' is your password
 
 Save the file and run the bot:
 
