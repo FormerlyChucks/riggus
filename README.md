@@ -2,7 +2,7 @@
 
 **A reddit bot, made to act like a human**
 
-## Description
+## About
 
 Q: How does the bot make comments?
 
