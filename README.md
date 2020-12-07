@@ -14,20 +14,19 @@ A: It streams the Hacker News /newest page. If the title contains words that are
 
 ## Running the bot
 
-- Install Python, Pip, Git
+Install Python, Pip, Git
 
-- Clone the repo, change into the bot directory:
+Clone the repo, change into the bot directory:
 
-      git clone https://github.com/Mr-Steal-Your-Script/Humanoid && cd Humanoid
+    git clone https://github.com/Mr-Steal-Your-Script/Humanoid && cd Humanoid
     
 Install the needed packages:
 
     pip3 install -r requirements.txt
     
-Create reddit app [here](https://reddit.com/prefs/apps)
+Create a reddit app [here](https://reddit.com/prefs/apps)
 
-- Select script
-- Fill out the rest
+- A detailed guide is [here](https://github.com/reddit-archive/reddit/wiki/OAuth2)
 
 Open config.yaml and enter your credentials:
 
