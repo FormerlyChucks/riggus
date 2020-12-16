@@ -18,7 +18,7 @@ Install Python, Pip, Git
 
 Clone the repo, change into the bot directory:
 
-    git clone https://github.com/IThinkImOKAY/Humanoid && cd Humanoid
+    git clone https://github.com/HotelDiablo/Humanoid && cd Humanoid
     
 Install the needed packages:
 
