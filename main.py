@@ -73,10 +73,10 @@ while True:
                 continue
             if get_sub() is not None:
                 reddit.submit(get_sub(), title, url)
-                else:
-                    print('no sub found')
-                with open('db.txt', 'a') as f:
-                    f.write(url + '\n')
+            else:
+                print('no sub found')
+            with open('db.txt', 'a') as f:
+                f.write(url + '\n')
             else:
                 print('url is in database')
         time.sleep(60)
