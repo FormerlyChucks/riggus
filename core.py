@@ -1,21 +1,40 @@
-import requests
+import requests, random, yaml, praw, ruqqus
 
+with open("config.yaml") as config_file:
+    config = yaml.safe_load(config_file)
+    linux = config["linux"]
+    programming = config["programming"]
+    politics = config["politics"]
+    internet = config["internet"]
+    gaming = config["gaming"]
+    censorship = config["censorship"]
+    r_id = config["reddit_id"]
+    reddit_secret = config["reddit_secret"]
+    reddit_agent = config["reddit_agent"]
+    ruqqus_id = config["ruqqus_id"]
+    ruqqus_secret = config["ruqqus_secret"]
+    ruqqus_access_token = config["ruqqus_access_token"]
+    
 hn_url = 'https://hacker-news.firebaseio.com/v0/{}.json'
+reddit = praw.Reddit(client_id=r_id,client_secret=reddit_secret,user_agent=reddit_agent)
+ruqqus = ruqqus.RuqqusClient(client_id=ruqqus_id,client_secret=ruqqus_secret,access_token=ruqqus_access_token)
 
-class randstory():
-    def __init__(self):
-        stories = hn_url.format("newstories")
-        get_stories = requests.get(hnurl).json()
-        if r is not None:
-            story = random.choice(r)
-            story_data = hn_url.format('item/{}'.format(sid))
-            get_story = requests.get(story_data).json
+def randstory():
+    stories = hn_url.format("newstories")
+    get_stories = requests.get(stories).json()
+    if get_stories is not None:
+        story = random.choice(list(get_stories))
+        story_data = hn_url.format('item/{}'.format(story))
+        if story_data is not None:
+            get_story = requests.get(story_data).json()
             title = get_story['title']
             url = get_story['url']
             text = '{} {}'.format(url,title)
             return text
         else:
             return 'error'
+    else:
+        return 'error'
 
 def get_guild(title):
     for word in linux:
@@ -38,30 +57,11 @@ def get_guild(title):
             return 'censorship'
     return 'internet'
 
-def get_reddit(sub):
-    subreddit = reddit.subreddit(sub)
+def reddit2ruqqus(sub_guild):
+    subreddit = reddit.subreddit(sub_guild)
     submissions = list(subreddit.top('all', limit=None))
     submission = random.choice(submissions)
     title = submission.title
     url = submission.url
-    text = '{} {}'.format(url,title)
-    return text
-
-def r2r(subreddit,guild):
-    post_data = get_reddit(sub=subreddit)
-    post = post_data.split()
-    post_url = post[0]
-    post_title = post_data.replace(post_url,'')
-    ruqqus.submit_post(guild=guild, url=post_url, title=post_title)
+    ruqqus.submit_post(guild=sub_guild, url=url, title=title)
     return 'success'
-
-def figure(glist):
-    guild = random.choice(guild_list)
-    if guild == 'dankmemes': r2r(subreddit='dankmemes',guild='dankmemes')
-    elif guild == 'memes': r2r(subreddit='memes',guild='memes')
-    elif guild == '4chan': r2r(subreddit='4chan',guild='4chan')
-    elif guild == 'tia': r2r(subreddit='tumblrinaction', guild='tumblrinaction')
-    elif guild == 'okbr': r2r(subreddit='okbuddyretard', guild='okbuddyretard')
-    elif guild == 'avgr': r2r(subreddit='averageredditor', guild='averageredditor')
-    else: return 'fuck'
-    return guild
