@@ -1,4 +1,4 @@
-import core, yaml, ruqqus, traceback, time, feedparser, random, praw
+import core, yaml, ruqqus, traceback, time, feedparser, random
 
 with open("config.yaml") as config_file:
     config = yaml.safe_load(config_file)
@@ -11,15 +11,11 @@ with open("config.yaml") as config_file:
     internet = config["internet"]
     gaming = config["gaming"]
     censorship = config["censorship"]
-    r_id = config["reddit_id"]
-    reddit_secret = config["reddit_secret"]
-    reddit_agent = config["reddit_agent"]
     guilds = config['guilds']
     feeds = config['feeds']
     guild_list = config['guild_list']
     
-ruqqus = ruqqus.RuqqusClient(client_id=_id,client_secret=secret,access_token=access_token)
-reddit = praw.Reddit(client_id=r_id,client_secret=reddit_secret,user_agent=reddit_agent)
+ruqqus = ruqqus.RuqqusClient(client_id=ruqqus_id,client_secret=ruqqus_secret,access_token=ruqqus_access_token)
   
 while True:
     try:
@@ -56,12 +52,13 @@ while True:
         #steal shit from reddit
         ourint = random.randint(0,99)
         if ourint % 2 == 0:
-            fig = core.figure(glist=guild_list)
-            print('submitted to +{}'.format(fig))
+            gl = random.choice(guild_list)
+            post = core.reddit2ruqqus(sub_guild=gl)
+            print('SUBMITTED TO +{} | ({})'.format(gl,'REDDIT'))
         time.sleep(60)
     except Exception:
         print(traceback.format_exc())
-        #time.sleep(60)
+        time.sleep(60)
     except KeyboardInterrupt:
         print('shutting down :(')
         quit()
