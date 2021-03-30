@@ -1,5 +1,4 @@
-pyyaml>=5.4.1
--e git://github.com/richardARPANET/python-ruqqus.git
+raw>=0.0.1
 feedparser>=6.0.2
 praw>=7.2.0
 requests>=2.23.0
