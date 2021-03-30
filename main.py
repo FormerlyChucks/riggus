@@ -118,7 +118,7 @@ while True:
                     print('SUBMITTED TO +{} | ({})'.format(g,'HACKER NEWS'))
                 else:
                     print('URL ALREADY IN DATABASE')
-        time.sleep(10)#change to 60 later
+        time.sleep(60)
     except Exception:
         print(traceback.format_exc())
         time.sleep(60)
