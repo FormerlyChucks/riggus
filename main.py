@@ -58,22 +58,6 @@ def get_guild(title):
         if word in title: return 'censorship'
     return 'internet'
 
-def randstory():
-    hn_url = 'https://hacker-news.firebaseio.com/v0/{}.json'
-    stories = hn_url.format("newstories")
-    get_stories = requests.get(stories).json()
-    if get_stories is not None:
-        story = random.choice(list(get_stories))
-        story_data = hn_url.format('item/{}'.format(story))
-        if story_data is not None:
-            get_story = requests.get(story_data).json()
-            title = get_story['title']
-            url = get_story['url']
-            text = '{} {}'.format(url,title)
-            return text
-        else: return 'error'
-    else: return 'error'
-
 while True:
     try:
         #parse rss and submit to rightoid guilds
@@ -92,9 +76,11 @@ while True:
                 rssparams = {'board': rssguild,
                              'title': rsstitle,
                              'url': rsslink}
-                ruqqus.post('/api/v1/submit', data=rssparams)
+                submit = ruqqus.post('/api/v1/submit', data=rssparams)
                 print('SUBMITTED TO +{} | ({})'.format(rssguild,'RSS FEEDS'))
-        open('articles', 'r+').truncate(0)
+            open('articles', 'r+').truncate(0)
+        feed = random.choice(feeds)
+        rssguild = random.choice(rssguilds)
         #steal shit from reddit
         ourint = random.randint(0,99)
         if ourint % 2 == 0:
@@ -102,22 +88,24 @@ while True:
             post = reddit2ruqqus(sub_guild=gl)
             print('SUBMITTED TO +{} | ({})'.format(gl,'REDDIT'))
         #get links from hn to whore that tasty rep
-        story = randstory()
-        if story != 'error':
-            hnlink = story.split()[0]
-            hntitle = story.replace(hnlink,'')
-            with open('db.txt') as db:
-                if hnlink not in db.read():
-                    g = get_guild(title=hntitle)
-                    ps = {'board': g,
-                          'title': hntitle,
-                          'url': hnlink}
-                    ruqqus.post('/api/v1/submit',data=ps)
-                    with open('db.txt', 'a') as f:
-                        f.write(hnlink + '\n')
-                    print('SUBMITTED TO +{} | ({})'.format(g,'HACKER NEWS'))
-                else:
-                    print('URL ALREADY IN DATABASE')
+        hn_feed = 'https://hnrss.org/newest'
+        for entry in feedparser.parse(hn_feed).entries:
+            hntext = '{} {}'.format(entry.link,entry.title)
+            with open('hnstuff','a') as hn:
+                hn.write(hntext + "\n")
+        else:
+            with open('hnstuff') as hn:
+                hnlines = [l.rstrip() for l in hn]
+                randhn = random.choice(hnlines)
+                hnlink = randhn.split()[0]
+                hntitle = randhn.replace(hnlink,'')
+                gg = get_guild(title=hntitle)
+                hnp = {'board': gg,
+                       'title': hntitle,
+                       'url': hnlink}
+                ruqqus.post('/api/v1/submit', data=hnp)
+                print('SUBMITTED TO +{} | ({})'.format(gg,'RSS FEEDS'))
+            open('hnstuff','r+').truncate(0)
         time.sleep(60)
     except Exception:
         print(traceback.format_exc())
