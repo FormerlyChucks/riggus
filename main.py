@@ -58,8 +58,6 @@ while True:
                 submit = ruqqus.post('/api/v1/submit', data=rssparams)
                 print('SUBMITTED TO +{} | ({})'.format(rssguild,'RSS FEEDS'))
             open('articles', 'r+').truncate(0)
-        feed = random.choice(feeds)
-        rssguild = random.choice(rssguilds)
         #steal shit from reddit
         ourint = random.randint(0,99)
         if ourint % 2 == 0:
